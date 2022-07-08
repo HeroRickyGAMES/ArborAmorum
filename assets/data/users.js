@@ -4,7 +4,7 @@ export default [
     name: 'Jailson Mendes',
     image:
       'https://pbs.twimg.com/ext_tw_video_thumb/706669816837496838/pu/img/vqkHDp6yZn30Hqp8.jpg',
-    bio: 'Come o cu do macho vain',
+    bio: 'Fode vai',
   },
   {
     id: '2',

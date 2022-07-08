@@ -1,14 +1,50 @@
 import React from "react";
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Pressable, Text} from 'react-native';
 import Card from './src/components/TinderCard';
 import users from './assets/data/users'
+import Animated, { useSharedValue, 
+  useAnimatedStyle, 
+  value, 
+  withSpring,
+  useAnimatedGestureHandler
+} from 'react-native-reanimated';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+
 //Programador por HeroRickyGames
 
 
 const App = () =>{
+
+  const sharedValue = useSharedValue(1);
+
+  const cardStyle = useAnimatedStyle(() => ({
+    transform:[
+      {
+        translateX: sharedValue.value * 100,
+    }
+  ],
+
+  }));
+
+  const gestHandler = useAnimatedGestureHandler({
+    onStart: ( ) => {
+      console.warn('Começou a tocar!')
+    },
+    onActive: (event) => {
+      console.warn('Tocou para X!', event.translationX)
+    },
+    onEnd:() =>{
+      console.warn('Parou de tocar!')
+    }
+  });
+
     return (
       <View style={styles.pageContainer}>
+      <PanGestureHandler onGestureEvent={gestHandler}>
+        <Animated.View style={[styles.animatedCard, cardStyle]}>
         <Card user={users[0]} />
+        </Animated.View>
+        </PanGestureHandler>
     </View>
     );
 };
@@ -16,55 +52,15 @@ const App = () =>{
 //Estilos
 const styles = StyleSheet.create({
   //Page container (Estilo da "Activity")
-  pageContainer : {justifyContent: 'center',
+  pageContainer:{
+  justifyContent: 'center',
   alignItems: 'center',
   flex: 1,
   },
-  //Estilo do cardView
-  card: {
-    width: '95%', 
-    height: '90%',
-    backgroundColor: 'red',
-    borderRadius: 10, 
-
-        shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 6.68,
-
-    elevation: 11,
-
-  },
-  //Estilo da imagem (Pode ser modificado!)
-  image: {
-    width: '100%', 
-    height: '100%',
-    borderRadius: 10,
-    overflow: 'hidden',
-
-  justifyContent: 'flex-end',
-  },
-  //cardView dentro da imagem
-  cardInner:{
-    padding: 20,
-  },
-  //Text styles
-  name: {
-      fontSize: 30,
-      color: 'white',
-      fontWeight: 'bold',
-      marginHorizontal: 10,
-      paddingBottom: 5,
-  },
-  bio: {
-    fontSize: 18,
-    color: 'white',
-    lineHeight: 25,
-    marginHorizontal: 10,
-    paddingBottom: 90,
+  animatedCard: {
+    width: '100%', height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
