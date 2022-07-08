@@ -1,25 +1,14 @@
 import React from "react";
-import {Text, Image, ImageBackground, View, StyleSheet} from 'react-native';
-
+import {View, StyleSheet} from 'react-native';
+import Card from './src/components/TinderCard';
+import users from './assets/data/users'
 //Programador por HeroRickyGames
+
 
 const App = () =>{
     return (
       <View style={styles.pageContainer}>
-              <View style={styles.card}>
-      <ImageBackground 
-      source={{
-        uri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim1.JPG'
-      }}
-      style={styles.image}>
-        
-        <View style={styles.cardInner}>
-
-        <Text style={styles.name}>Jailson</Text>
-        <Text style={styles.bio}>Um cara extremamente gay, seus feitos são: Peidar na mão e cherar, cagar na rua e ser gay</Text>
-        </View>
-      </ImageBackground>
-      </View>
+        <Card user={users[0]} />
     </View>
     );
 };
@@ -31,6 +20,7 @@ const styles = StyleSheet.create({
   alignItems: 'center',
   flex: 1,
   },
+  //Estilo do cardView
   card: {
     width: '95%', 
     height: '90%',
@@ -57,6 +47,7 @@ const styles = StyleSheet.create({
 
   justifyContent: 'flex-end',
   },
+  //cardView dentro da imagem
   cardInner:{
     padding: 20,
   },
@@ -66,13 +57,15 @@ const styles = StyleSheet.create({
       color: 'white',
       fontWeight: 'bold',
       marginHorizontal: 10,
+      paddingBottom: 5,
   },
   bio: {
     fontSize: 18,
     color: 'white',
     lineHeight: 25,
     marginHorizontal: 10,
+    paddingBottom: 90,
   },
-})
+});
 
 export default App;
